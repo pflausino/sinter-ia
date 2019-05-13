@@ -37,8 +37,15 @@ namespace sinter_ia.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<Art> Post([FromBody]Art art)
         {
+
+            FirebaseConfiguration fire = new FirebaseConfiguration();
+
+            var result = await fire.Save(art);
+            return result;
+            
+
         }
 
         // PUT api/<controller>/5
@@ -49,8 +56,12 @@ namespace sinter_ia.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<Art> Delete(string id)
         {
+            FirebaseConfiguration fire = new FirebaseConfiguration();
+
+            var result = await fire.DeleteById(id);
+            return result;
         }
 
     }

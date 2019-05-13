@@ -27,5 +27,33 @@ namespace sinter_ia.Infra
             var todo = response.ResultAs<Art>();
             return todo;
         }
+        public async Task<Art> Save(Art art)
+        {
+            IFirebaseConfig config = new FirebaseConfig
+            {
+                //AuthSecret = "your_firebase_secret",
+                BasePath = "https://sinterremote.firebaseio.com/"
+            };
+
+            IFirebaseClient client = new FirebaseClient(config);
+
+            FirebaseResponse response = await client.PushAsync("Artes/", art);
+            var todo = response.ResultAs<Art>();
+            return todo;
+        }
+        public async Task<Art> DeleteById(string id)
+        {
+            IFirebaseConfig config = new FirebaseConfig
+            {
+                //AuthSecret = "your_firebase_secret",
+                BasePath = "https://sinterremote.firebaseio.com/"
+            };
+
+            IFirebaseClient client = new FirebaseClient(config);
+
+            FirebaseResponse response = await client.DeleteAsync("Artes/" + id);
+            var todo = response.ResultAs<Art>();
+            return todo;
+        }
     }
 }
